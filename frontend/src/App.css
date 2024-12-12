@@ -1,0 +1,105 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  justify-items: center;
+  margin-top: 8px;
+  background-color: antiquewhite;
+}
+
+h1 {
+  color: #000000;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #013e04;
+}
+
+button:disabled {
+  background-color: #aaa4a4;
+  cursor: not-allowed;
+}
+button:disabled:hover{
+  background-color: crimson;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.config-form{
+  background-color: rgb(53, 25, 8);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 730px;
+}
+.config-form h3{
+  margin-bottom: 20px;
+}
+.config-form div{
+  margin-bottom: 10px;
+}
+.config-form label{
+  display: block;
+  margin-bottom: 5px;
+}
+.config-form input{
+  width: 100%;
+  padding: 8px;
+  background-color: rgb(219, 218, 217);
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+.ticket-status{
+  width: 400px;
+  padding: 20px;
+  border: 1px solid#ccc;
+  border-radius: 8px;
+  background-color: burlywood;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.ticket-status h3{
+  margin-bottom: 10px;
+}
+.ticket-status p{
+  font-size: 16px;
+
+}
+.control-panel{
+  height: 150px;
+  width: 400px;
+  margin-top: 30px;
+  border-radius: 6px;
+  background-color: burlywood;
+  margin-bottom: 30px;
+}
+.control-panel button{
+  padding: 10px 20px;
+  border-radius: 10px;
+  
+}
+.log-display{
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgb(234, 195, 105);
+  max-height: 2000px;
+  overflow-y:visible;
+  width: 800px;
+}
+
+.log-display h3{
+  margin-bottom: 20px;
+}
+
