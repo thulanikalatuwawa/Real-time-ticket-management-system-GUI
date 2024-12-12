@@ -1,115 +1,129 @@
-# Real-time-event-ticketing-system - backend
+# Ticket Management System
 
 ## Overview
-This Spring Boot application implements a ticket management system using multithreaded producer-consumer logic. Vendors release tickets into a shared ticket pool every minute, while customers retrieve tickets from the pool.
-The backend provides REST APIs for configuring the system, managing vendors and customers, and retrieving system logs.
+The Ticket Management System is a multi-threaded application that simulates a ticket pool managed by vendors and customers. The backend is built using Spring Boot and implements producer-consumer logic, while the frontend is developed with React.js to provide a user-friendly interface for system configuration and monitoring.
 
 ## Features
+### Backend
 1. **Configuration Management**:
-    - Configure ticket management parameters such as total tickets, ticket release rate, customer retrieval rate, and maximum ticket capacity.
-    - Validate configuration inputs to ensure they fall within acceptable ranges.
-    - Save and load configurations as JSON files.
-
+    - Configure ticket system parameters such as ticket release rate, customer retrieval rate, and maximum ticket capacity.
+    - Validate configuration inputs to ensure data integrity.
 2. **Vendor Management**:
-    - Start and stop vendor threads.
-    - Vendors release a specified number of tickets into the pool at regular intervals.
-
+    - Start and stop vendor threads that release tickets into the pool.
 3. **Customer Management**:
-    - Start and stop customer threads.
-    - Customers retrieve tickets from the pool at regular intervals.
-
+    - Start and stop customer threads that retrieve tickets from the pool.
 4. **Ticket Pool**:
-    - Thread-safe ticket pool for managing ticket availability.
-    - Logs all ticket-related activities.
-
+    - Thread-safe pool for managing ticket availability.
 5. **Logging**:
-    - Generate detailed logs for ticket pool activities, vendor actions, and customer behavior.
-    - Expose logs via an API endpoint.
+    - Logs all ticket-related activities, vendor actions, and customer behavior.
+
+### Frontend
+1. **Configuration Panel**:
+    - Update and display ticket management settings.
+2. **Control Panel**:
+    - Start and stop vendor and customer threads.
+3. **Ticket Status**:
+    - View the current number of available tickets in the pool.
+4. **Logs**:
+    - Display real-time logs from the backend.
 
 ## Prerequisites
-- Java 17 or higher
-- Maven
-- Spring Boot 3.x
+- **Backend**:
+    - Java 17 or higher
+    - Maven
+    - Spring Boot 3.x
+- **Frontend**:
+    - Node.js 18 or higher
+    - npm or yarn
 
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/thulani-kalatuwawa/real-time-ticket-management-system.git
-   ```
+### Clone the Repository
+```bash
+git clone https://github.com/thulani-kalatuwawa/real-time-ticket-management-system.git
+cd real-time-ticket-management-system
+```
 
-2. Navigate to the project directory:
+### Backend Setup
+1. Navigate to the backend directory:
    ```bash
-   cd ticket-management-system
+   cd backend
    ```
-
-3. Build the project:
+2. Build the project:
    ```bash
    mvn clean install
    ```
-
-4. Run the application:
+3. Run the application:
    ```bash
    mvn spring-boot:run
    ```
+   The backend will run on `http://localhost:8080`.
+
+### Frontend Setup
+1. Navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the application:
+   ```bash
+   npm start
+   ```
+   The frontend will run on `http://localhost:3000`.
 
 ## API Endpoints
-
 ### Configuration
-- **Get Configuration**
-    - Endpoint: `GET /api/configuration`
-    - Description: Retrieve the current system configuration.
-
-- **Update Configuration**
-    - Endpoint: `POST /api/configuration`
-    - Description: Update the ticket system configuration.
-    - Payload:
-      ```json
-      {
-        "totalTickets": 100,
-        "ticketReleaseRate": 5,
-        "customerRetrievalRate": 2,
-        "maxTicketCapacity": 200
-      }
-      ```
+- **Get Configuration**: `GET /api/configuration`
+- **Update Configuration**: `POST /api/configuration`
+  - Payload:
+    ```json
+    {
+      "totalTickets": 100,
+      "ticketReleaseRate": 5,
+      "customerRetrievalRate": 2,
+      "maxTicketCapacity": 200
+    }
+    ```
 
 ### Vendor Management
-- **Start Vendors**
-    - Endpoint: `POST /api/tickets/start-vendor`
-    - Description: Start vendor threads with the specified tickets per release.
-    - Parameters: `ticketsPerRelease`
-
-- **Stop Vendors**
-    - Endpoint: `POST /api/tickets/stop-vendor`
-    - Description: Stop all running vendor threads.
+- **Start Vendors**: `POST /api/tickets/start-vendor`
+- **Stop Vendors**: `POST /api/tickets/stop-vendor`
 
 ### Customer Management
-- **Start Customers**
-    - Endpoint: `POST /api/tickets/start-customer`
-    - Description: Start customer threads with the specified retrieval interval.
-    - Parameters: `retrievalInterval`
-
-- **Stop Customers**
-    - Endpoint: `POST /api/tickets/stop-customer`
-    - Description: Stop all running customer threads.
+- **Start Customers**: `POST /api/tickets/start-customer`
+- **Stop Customers**: `POST /api/tickets/stop-customer`
 
 ### Logs
-- **Get Logs**
-    - Endpoint: `GET /api/tickets/logs`
-    - Description: Retrieve the activity logs for the ticket pool.
+- **Get Logs**: `GET /api/tickets/logs`
 
-## Code Structure
-- **Models**
-    - `Configuration`: Stores configuration details and validates inputs.
-    - `TicketPool`: Manages tickets in a thread-safe manner.
-    - `Vendor`: Implements vendor behavior for releasing tickets.
-    - `Customer`: Implements customer behavior for retrieving tickets.
-
-- **Controllers**
-    - `ConfigurationController`: Manages configuration-related APIs.
-    - `TicketController`: Manages ticket pool, vendors, and customers.
+## Project Structure
+```
+real-time-ticket-management-system/
+├── backend/       # Spring Boot backend code
+│   ├── src/
+│   ├── pom.xml
+│   └── README.md
+├── frontend/      # React.js frontend code
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── README.md
+└── README.md      # Root project-level README
+```
 
 ## Troubleshooting
-1. Ensure the backend service is running on `http://localhost:8080`.
-2. Cross-origin requests are allowed only from `http://localhost:3000`.
+1. Ensure both frontend and backend are running on their respective ports (`3000` for frontend, `8080` for backend).
+2. Cross-origin requests are allowed only from `http://localhost:3000` to `http://localhost:8080`.
+3. If `node_modules` is missing, run `npm install` inside the `frontend` directory.
+4. Check logs in the backend console for debugging multithreaded operations.
 
+## Future Enhancements
+1. Real-time updates using WebSockets.
+2. Authentication and role-based access control.
+3. Advanced monitoring dashboards.
+
+---
+This project demonstrates the integration of multithreaded backend logic with a modern frontend interface. Contributions and feedback are welcome!
 
